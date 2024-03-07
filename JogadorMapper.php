@@ -63,6 +63,7 @@ class JogadorMapper {
             $stmt -> bindParam(':data_cadastro',$data_cadastro);
 
             $stmt ->execute();
+            echo '<button><a href="visualizar.html">Voltar</a></button>';
         }
 
         public function geterID($id)
