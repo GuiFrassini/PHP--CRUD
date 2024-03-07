@@ -27,6 +27,7 @@ class JogadorMapper {
         $stmt -> bindParam(':data_cadastro',$data_cadastro);
 
         $stmt->execute();
+        echo '<button><a href="index.html">Voltar</a></button>';
     }
 
         public function listaJogadores()
@@ -40,17 +41,62 @@ class JogadorMapper {
             return $result;
         }
 
-        public function update(jogador $jogador) {
+
+        public function updateJogador(jogador $jogador) {
             $db = Database::getInstance();
 
-            $stmt = $db->prepare ("UPDATE products SET name = ., price = ? WHERE id = ?");
+            $id = $jogador->getId();
+            $name = $jogador->getName();
+            $username = $jogador->getUsername();
+            $email = $jogador->getEmail();
+            $senha = $jogador->getSenha();
+            $data_cadastro = $jogador->getCreatedata();
+
+            $stmt = $db->prepare("UPDATE jogador SET name = :name ,username = :username ,email = :email, senha = :senha, data_cadastro =:data_cadastro
+                    WHERE id = :id");
+
+            $stmt -> bindParam(':id',$id);
+            $stmt -> bindParam(':name',$name);
+            $stmt -> bindParam(':username',$username);
+            $stmt -> bindParam(':email',$email);
+            $stmt -> bindParam(':senha',$senha);
+            $stmt -> bindParam(':data_cadastro',$data_cadastro);
+
+            $stmt ->execute();
         }
-/*
-        public function delete(Jogador $jogador) {
-            $query = "DELETE FROM jogadores WHERE id = ?";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('i', $jogador->getId());
-            return $stmt->execute();
+
+        public function geterID($id)
+        {
+            $db = Database::getInstance();
+            //bindParam troca a os parametros '' pela variavel neste caso;
+            $stmt = $db->prepare('Select * from jogador where id =:id');
+            $stmt ->bindParam('id',$id);
+            $stmt ->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result){
+                $jogador = new jogador();
+                $jogador -> setId($result['id']);
+                $jogador -> setName($result['name']);
+                $jogador -> setUsername($result['username']);
+                $jogador -> setEmail($result['email']);
+                $jogador -> setSenha($result['senha']);
+                $jogador -> setCreatedata($result['data_cadastro']);
+                return $jogador;
+            }
+            return null;
+
         }
-        */
+        public function excluirUsuario(jogador $jogador)
+        {
+            $db = Database::getInstance();
+
+            $id = $jogador->getId();
+
+            $stmt = $db->prepare("delete from jogador where id = :id");
+            $stmt ->bindParam('id',$id);
+            $stmt ->execute();
+            echo '<button><a href="index.html">Voltar</a></button>';
+
+        }
 }

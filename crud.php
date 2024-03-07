@@ -14,7 +14,7 @@ class jogador
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -25,7 +25,7 @@ class jogador
 
     }
 
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -35,7 +35,7 @@ class jogador
         return $this->username;
     }
 
-    public function setUsername(string $username)
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
@@ -45,7 +45,7 @@ class jogador
         return $this->email;
     }
 
-    public function setEmail(string $email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -55,7 +55,7 @@ class jogador
         return $this->senha;
     }
 
-    public function setSenha($senha)
+    public function setSenha($senha): void
     {
         $this->senha = $senha;
     }
@@ -65,7 +65,7 @@ class jogador
         return $this->createdata;
     }
 
-    public function setCreatedata($createdata)
+    public function setCreatedata($createdata): void
     {
         $this->createdata = $createdata;
     }
